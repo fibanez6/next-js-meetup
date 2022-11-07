@@ -36,7 +36,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // -- getStaticProps runs in the background 
     // BLOCKING 
     // -- getStaticProps is called before initial render 
-    fallback: false
+    // -- Generates the pages when it nneeds them
+    fallback: 'blocking'
   }
 }
 
