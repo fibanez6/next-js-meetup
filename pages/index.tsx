@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 import clientPromise from "../lib/mongodb";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 // import { DUMMY_MEETUPS } from '../dummy'
 
 // This function gets called on each incoming request.
@@ -41,7 +42,7 @@ export const getStaticProps: GetStaticProps = async () => {
           address: meetup.address,
         }))
       },
-  
+
       // It will attempt to re-generate the page after the deploment:
       // - When a request comes in
       // - At most once every 10 seconds
@@ -66,6 +67,10 @@ const HomePage = ({ meetups }: InferGetServerSidePropsType<typeof getStaticProps
   return (
     <>
       <h1>MeetupList</h1>
+      <Head>
+        <title>Next.js Meetups</title>
+        <meta name="description" content="Browse a huge list of highly active React meetups!" />
+      </Head>
       <MeetupList meetups={loadedMeetups} />
     </>
   );

@@ -1,9 +1,10 @@
 import MeetupDetails from "../../components/meetups/MeetupDetails";
-import { Collection, Db, MongoClient } from 'mongodb';
+import { Collection, Db, MongoClient, ObjectId, WithId } from 'mongodb';
 import { DUMMY_MEETUPIDS } from '../../dummy';
 import { MeetupDoc } from "../../types/meetup";
 import clientPromise from "../../lib/mongodb";
 import { GetStaticPaths, GetStaticProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 
 // This will generate an user details page for each user in the fetched array
 // It will only run during build in production, it will not be called during
@@ -15,9 +16,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const db: Db = client.db();
   const meetupCollection: Collection<MeetupDoc> = db.collection('meetups');
   const meetups: MeetupDoc[] = await meetupCollection.find({}, { projection: { _id: 1 } }).toArray(); // only fetch ids
-  client.close();
 
-  console.log(DUMMY_MEETUPIDS);
+  // console.log(DUMMY_MEETUPIDS);
 
   return {
     // paths: DUMMY_MEETUPIDS,
@@ -46,27 +46,39 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const meetupId = params!.meetupId as string;
 
   // fetch data from an API
+  const client: MongoClient = await clientPromise;
+  const db: Db = client.db();
+  const meetupCollection: Collection<MeetupDoc> = db.collection('meetups');
+  const selectedMeetup: WithId<MeetupDoc> | null = await meetupCollection.findOne({ _id: new ObjectId(meetupId) });
+
+  // console.log(selectedMeetup?._id.toString())
+
   return {
     props: {
-      meetupsData: {
-        image: "https://images.unsplash.com/photo-1667379586896-ce8d7844eb0b",
-        title: "title",
-        address: "address",
-        description: "description"
+      meetup: {
+        image: selectedMeetup?.image,
+        title: selectedMeetup?.title,
+        address: selectedMeetup?.address,
+        description: selectedMeetup?.description
       }
     }
   }
 }
 
-
-const meetupId = ({ meetupsData }: InferGetServerSidePropsType<typeof getStaticProps>) => {
+const meetupId = ({ meetup }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   return (
-    <MeetupDetails
-      image={meetupsData.image}
-      title={meetupsData.title}
-      address={meetupsData.address}
-      description={meetupsData.description}
-    />
+    <>
+      <Head>
+        <title>{meetup.title}</title>
+        <meta name="description" content={meetup.description} />
+      </Head>
+      <MeetupDetails
+        image={meetup.image}
+        title={meetup.title}
+        address={meetup.address}
+        description={meetup.description}
+      />
+    </>
   );
 }
 
