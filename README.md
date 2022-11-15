@@ -3,7 +3,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 <p align="center">
+  <a href="https://nextjs.org/" target="blank"><img src="./logos/next-logo.png" width=100" alt="Nextjs logo"/></a>
   <a href="https://reactjs.org/" target="blank"><img src="./logos/react-logo.png" width="100" alt="React logo"/></a>
+  <a href="https://www.typescriptlang.org/" target="blank"><img src="./logos/typescript_logo.png" width="100" alt="Typescript logo"/></a>
   <a href="https://www.mongodb.com/atlas/database" target="blank"><img src="./logos/mongod-logo.webp" width=100" alt="Mongod Atlas logo"/></a>
 </p>
 
