@@ -2,13 +2,19 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+<p align="center">
+  <a href="https://reactjs.org/" target="blank"><img src="./logos/react-logo.png" width="100" alt="React logo"/></a>
+  <a href="https://www.mongodb.com/atlas/database" target="blank"><img src="./logos/mongod-logo.webp" width=100" alt="Mongod Atlas logo"/></a>
+</p>
+
+
 ## Home Page
 
-![HomePage](./docs/HomePage.png)
+![HomePage](./screenshots/HomePage.png)
 
 ## Cloud MongoDB Collection
 
-![Cloud MongoDB](./docs/Cloud-MongoDB-Collection.png)
+![Cloud MongoDB](./screenshots/Cloud-MongoDB-Collection.png)
 
 ## Stack
 
